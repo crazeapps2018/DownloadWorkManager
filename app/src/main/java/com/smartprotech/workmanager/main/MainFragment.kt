@@ -63,17 +63,21 @@ class MainFragment : Fragment() {
                             totalQuantityOfImagesProcessed += 1
                             fromImage.text = totalQuantityOfImagesProcessed.toString()
                             progress_bar_2.progress = totalQuantityOfImagesProcessed
-                            //val messageImage =
+
+                            if (progress_bar_2.progress==100){
+                                tvDownload.setText("Downloaded")
+                            }
 
                             if (workInfo.state == WorkInfo.State.SUCCEEDED) {
-                                workInfo.outputData.getString(KEY_IMAGE_PATH)
+                                val storagePath = workInfo.outputData.getString(KEY_IMAGE_PATH)
+                                message.text = storagePath
+
                             } else {
                                 getString(R.string.error_dowload_image)
                                 tvDownload.setText("Error")
 
                             }
 
-                           // message.text = messageImage
 
                         }
 //                        else {
