@@ -36,6 +36,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel.listUrlsDownload.observe(this, Observer { listUrls ->
             toImage.text = listUrls.count().toString()
             listUrls.forEach { url ->
@@ -61,11 +62,23 @@ class MainFragment : Fragment() {
                         if (workInfo != null && workInfo.state.isFinished) {
                             totalQuantityOfImagesProcessed += 1
                             fromImage.text = totalQuantityOfImagesProcessed.toString()
-                            val messageImage = if (workInfo.state == WorkInfo.State.SUCCEEDED)
+                            progress_bar_2.progress = totalQuantityOfImagesProcessed
+                            //val messageImage =
+
+                            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
                                 workInfo.outputData.getString(KEY_IMAGE_PATH)
-                            else getString(R.string.error_dowload_image)
-                            message.text = messageImage
+                            } else {
+                                getString(R.string.error_dowload_image)
+                                tvDownload.setText("Error")
+
+                            }
+
+                           // message.text = messageImage
+
                         }
+//                        else {
+//                            tvDownload.setText("Downloaded")
+//                        }
                     })
             }
         })
